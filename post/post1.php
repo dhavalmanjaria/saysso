@@ -1,5 +1,29 @@
 <?php
 
+// write to an ini file to save temporarily.
+// This is not exactly a good idea.
+
+if ($_POST['post-title'] != "") {
+	$file = fopen("/dev/shm/saysso.ini","w");
+	$ini_config = "[config]" . PHP_EOL;
+	
+	$ini_config = $ini_config . 'post-title = "' . $_POST['post-title'] . '"'. PHP_EOL;
+	
+	$ini_config = $ini_config . 'post-subtitle = "' . $_POST['post-subtitle'] . '"'. PHP_EOL;
+	
+	$ini_config = $ini_config . 'post-text = "' . $_POST['post-text'] . '"'. PHP_EOL;
+	
+	fwrite($file, $ini_config);
+	fclose($file);
+}
+
+// Read from the file anyway
+$ini_config = parse_ini_file("/dev/shm/saysso.ini", true);
+$val = $ini_config['config'];
+
+
+// Read it into a variable to load it.
+
 ?>
 
 
@@ -76,8 +100,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1><?php echo $_POST['post-title'];?></h1>                 <h2 class="subheading"><?php echo $_POST['post-subtitle']?></h2>
-                    <span class="meta">Posted by John Smith on August 24, 2014</span>       
+                        <h1><?php echo $val['post-title'];?></h1>            
+                        <h2 class="subheading"><?php echo $val['post-subtitle']?></h2>
+                    	<span class="meta">Posted by John Smith on August 24, 2014</span>       
                     </div>
                     
                 </div>
