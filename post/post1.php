@@ -116,7 +116,7 @@ $val = $ini_config['config'];
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <p>
-                    <?php echo $_POST['post-text'];?>
+                    <?php echo $val['post-text'];?>
                     </p>
                   
                  <h2 class="section-heading">A detailed explaination of the problem.</h2>
